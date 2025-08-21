@@ -67,10 +67,11 @@
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(8px);
       border-radius: 16px;
-      padding: 20px;
+      padding: 0;
       text-align: left;
       box-shadow: 0 0 20px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
     }
 
     .card:hover {
@@ -78,18 +79,30 @@
       box-shadow: 0 0 25px rgba(241, 196, 15, 0.6);
     }
 
-    .card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: #f39c12;
-    }
-
     .card a {
       text-decoration: none;
       color: #fff;
       display: block;
-      margin-top: 8px;
-      font-size: 16px;
+      padding: 20px;
+      height: 100%;
+      transition: background 0.3s ease;
+    }
+
+    .card a:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #f39c12;
+      margin-top: 0;
+    }
+
+    .card span {
+      color: #bdc3c7;
+      font-size: 14px;
+      line-height: 1.4;
     }
 
     footer {
@@ -114,26 +127,126 @@
   </header>
 
   <section class="grid" id="calculatorGrid">
-    <div class="card"><h3>🧮 Simple Calculator</h3><a href="simple.html">Open Tool</a></div>
-    <div class="card"><h3>🔬 Scientific Calculator</h3><a href="Scientific.html">Open Tool</a></div>
-    <div class="card"><h3>🎂 Age Calculator</h3><a href="age.html">Open Tool</a></div>
-    <div class="card"><h3>🛌 Sleep Calculator</h3><a href="sleep.html">Open Tool</a></div>
-    <div class="card"><h3>🧊 Matrix Calculator</h3><a href="matrix.html">Open Tool</a></div>
-    <div class="card"><h3>⚗️ Chemistry Calculator</h3><a href="chemistry.html">Open Tool</a></div>
-    <div class="card"><h3>🧲 Physics Calculator</h3><a href="physics.html">Open Tool</a></div>
-    <div class="card"><h3>🏦 EMI Calculator</h3><a href="emi.html">Open Tool</a></div>
-    <div class="card"><h3>💸 Loan Calculator</h3><a href="loan.html">Open Tool</a></div>
-    <div class="card"><h3>🏠 Mortgage Calculator</h3><a href="mortgage.html">Open Tool</a></div>
-    <div class="card"><h3>🧾 Tax Calculator</h3><a href="tax.html">Open Tool</a></div>
-    <div class="card"><h3>🏷️ Discount Calculator</h3><a href="discount.html">Open Tool</a></div>
-    <div class="card"><h3>📈 ROI Calculator</h3><a href="roi.html">Open Tool</a></div>
-    <div class="card"><h3>💹 Dividend Calculator</h3><a href="dividend.html">Open Tool</a></div>
-    <div class="card"><h3>📊 Profit & Loss Calculator</h3><a href="profit-loss.html">Open Tool</a></div>
-    <div class="card"><h3>🧮 GST/VAT Calculator</h3><a href="gst.html">Open Tool</a></div>
-    <div class="card"><h3>👴 Retirement Calculator</h3><a href="retirment.html">Open Tool</a></div>
-    <div class="card"><h3>💰 Interest Calculator</h3><a href="intrest.html">Open Tool</a></div>
-    <div class="card"><h3>💱 Currency Calculator</h3><a href="currency.html">Open Tool</a></div>
-    <div class="card"><h3>📚 Accounting Calculator</h3><a href="accounting.html">Open Tool</a></div>
+    <div class="card">
+      <a href="simple.html">
+        <h3>🧮 Simple Calculator</h3>
+        <span>Basic arithmetic operations</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="Scientific.html">
+        <h3>🔬 Scientific Calculator</h3>
+        <span>Advanced mathematical functions</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="age.html">
+        <h3>🎂 Age Calculator</h3>
+        <span>Calculate your exact age</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="sleep.html">
+        <h3>🛌 Sleep Calculator</h3>
+        <span>Find optimal sleep cycles</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="matrix.html">
+        <h3>🧊 Matrix Calculator</h3>
+        <span>Matrix operations and calculations</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="chemistry.html">
+        <h3>⚗️ Chemistry Calculator</h3>
+        <span>Chemical equations and formulas</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="physics.html">
+        <h3>🧲 Physics Calculator</h3>
+        <span>Physics formulas and calculations</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="emi.html">
+        <h3>🏦 EMI Calculator</h3>
+        <span>Equated Monthly Installments</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="loan.html">
+        <h3>💸 Loan Calculator</h3>
+        <span>Loan payments and interest</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="mortgage.html">
+        <h3>🏠 Mortgage Calculator</h3>
+        <span>Home loan calculations</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="tax.html">
+        <h3>🧾 Tax Calculator</h3>
+        <span>Income tax calculations</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="discount.html">
+        <h3>🏷️ Discount Calculator</h3>
+        <span>Calculate discounts and savings</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="roi.html">
+        <h3>📈 ROI Calculator</h3>
+        <span>Return on Investment</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="dividend.html">
+        <h3>💹 Dividend Calculator</h3>
+        <span>Dividend yield calculations</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="profit-loss.html">
+        <h3>📊 Profit & Loss Calculator</h3>
+        <span>Business P&L calculations</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="gst.html">
+        <h3>🧮 GST/VAT Calculator</h3>
+        <span>Tax calculations</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="retirment.html">
+        <h3>👴 Retirement Calculator</h3>
+        <span>Retirement planning</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="intrest.html">
+        <h3>💰 Interest Calculator</h3>
+        <span>Simple and compound interest</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="currency.html">
+        <h3>💱 Currency Calculator</h3>
+        <span>Convert between currencies</span>
+      </a>
+    </div>
+    <div class="card">
+      <a href="accounting.html">
+        <h3>📚 Accounting Calculator</h3>
+        <span>Accounting formulas and calculations</span>
+      </a>
+    </div>
   </section>
 
   <footer>
