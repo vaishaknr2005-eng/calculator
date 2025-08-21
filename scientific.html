@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeoCalc | Scientific Calculator with Glowing UI</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="NeoCalc is a glowing scientific calculator built by Vaishak. Supports trigonometry, logarithms, powers, constants, and more.">
+  <meta name="keywords" content="scientific calculator, NeoCalc, glowing calculator, trigonometry, log calculator, math functions, Vaishak, Mysore, futuristic UI">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/scientific.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="NeoCalc | Scientific Calculator by Vaishak">
+  <meta property="og:description" content="Calculate with style. NeoCalc supports sin, cos, tan, log, powers, and constants like π and e.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/scientific.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #0f0f0f, #1a1a1a);
+      color: #00ffe7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid #00ffe7;
+      border-radius: 16px;
+      padding: 30px;
+      width: 460px;
+      box-shadow: 0 0 20px #00ffe7;
+      text-align: center;
+      position: relative;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 5px #00ffe7;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 20px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 10px;
+      background-color: #111;
+      color: #00ffe7;
+      text-align: right;
+      box-shadow: inset 0 0 5px #00ffe7;
+    }
+
+    .preview {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .buttons button {
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #222;
+      color: #00ffe7;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .buttons button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00ffe7;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #00ff99;
+    }
+
+    .mode-toggle {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ccc;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      background-color: #2ecc71;
+    }
+  </style>
+</head>
+<body>
+  <main class="calculator" role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>🧮 Scientific Calculator</h2>
+    <input type="text" id="expression" placeholder="Type or click..." oninput="updatePreview()" aria-label="Expression input">
+    <div class="preview" id="preview" aria-live="polite">Ready to calculate...</div>
+
+    <div class="buttons" id="buttonGrid" aria-label="Calculator Buttons">
+      <!-- Numbers + Operators -->
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('/')">÷</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('*')">×</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('-')">−</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="append('+')">+</button>
+
+      <!-- Scientific Functions -->
+      <button onclick="append('sin(')">sin</button>
+      <button onclick="append('cos(')">cos</button>
+      <button onclick="append('tan(')">tan</button>
+      <button onclick="append('sqrt(')">√</button>
+
+      <button onclick="append('log(')">log</button>
+      <button onclick="append('pow(')">xʸ</button>
+      <button onclick="append('pi')">π</button>
+      <button onclick="append('e')">e</button>
+
+      <button onclick="append('(')">(</button>
+      <button onclick="append(')')">)</button>
+      <button onclick="clearInput()" style="background-color: #e74c3c;">C</button>
+      <button onclick="deleteLast()" style="background-color: #f39c12;">⌫</button>
+    </div>
+
+    <div class="result" id="result" aria-live="polite"></div>
+    <div class="mode-toggle" onclick="toggleTheme()">🌓 Toggle Theme</div>
+  </main>
+
+  <script>
+    const input = document.getElementById('expression');
+    const result = document.getElementById('result');
+    const preview = document.getElementById('preview');
+    let darkMode = true;
+
+    function append(value) {
+      input.value += value;
+      updatePreview();
+    }
+
+    function clearInput() {
+      input.value = '';
+      result.textContent = '';
+      preview.textContent = 'Ready to calculate...';
+    }
+
+    function deleteLast() {
+      input.value = input.value.slice(0, -1);
+      updatePreview();
+    }
+
+    function updatePreview() {
+      let expr = input.value
+        .replace(/sin\(/g, 'Math.sin(')
+        .replace(/cos\(/g, 'Math.cos(')
+        .replace(/tan\(/g, 'Math.tan(')
+        .replace(/sqrt\(/g, 'Math.sqrt(')
+        .replace(/log\(/g, 'Math.log10(')
+        .replace(/pow\(/g, 'Math.pow(')
+        .replace(/pi/g, 'Math.PI')
+        .replace(/e/g, 'Math.E');
+      preview.textContent = expr || "Ready to calculate...";
+    }
+
+    function calculate() {
+      try {
+        const expr = preview.textContent;
+        const output = eval(expr);
+        result.textContent = `✅ Result: ${output}`;
+        input.value = output;
+        updatePreview();
+      } catch {
+        result.textContent = "⚠️ Invalid expression";
+      }
+    }
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      document.body.style.background = darkMode
+        ? "radial-gradient(circle at top, #0f0f0f, #1a1a1a)"
+        : "linear-gradient(to right, #f0f0f0, #dcdcdc)";
+      document.body.style.color = darkMode ? "#00ffe7" : "#333";
+    }
+  </script>
+</body>
+</html>

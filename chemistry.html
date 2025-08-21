@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chemistry Calculator | Moles, Mass & Molarity</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Interactive Chemistry Calculator to convert between moles and mass, and calculate solution molarity. Built by Vaishak with glowing UI and modular layout.">
+  <meta name="keywords" content="chemistry calculator, moles to mass, molarity calculator, solution concentration, Vaishak, Mysore, science tools">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/chemistry.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Chemistry Calculator by Vaishak">
+  <meta property="og:description" content="Convert moles to mass and calculate molarity with this sleek, interactive chemistry tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/chemistry.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    /* [Your existing CSS remains unchanged] */
+    /* ... */
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <nav class="tabs" aria-label="Chemistry Topics">
+      <button onclick="showCard('molesCard')">🧪 Moles ↔ Mass</button>
+      <button onclick="showCard('molarityCard')">🧫 Molarity</button>
+    </nav>
+
+    <!-- Moles ↔ Mass -->
+    <section id="molesCard" class="card active" aria-labelledby="molesTab">
+      <div class="left">
+        <h2>Moles ↔ Mass</h2>
+        <label for="molarMass">Molar Mass (g/mol)</label>
+        <input type="number" id="molarMass" placeholder="e.g. 18.015">
+        <label for="mass">Mass (g)</label>
+        <input type="number" id="mass" placeholder="e.g. 36">
+        <button class="calc" onclick="calculateMoles()">Convert to Moles</button>
+      </div>
+      <div class="right">
+        <div class="result" id="resultMoles" aria-live="polite">Result will appear here...</div>
+      </div>
+    </section>
+
+    <!-- Molarity -->
+    <section id="molarityCard" class="card" aria-labelledby="molarityTab">
+      <div class="left">
+        <h2>Solution Molarity</h2>
+        <label for="soluteMass">Mass of Solute (g)</label>
+        <input type="number" id="soluteMass" placeholder="e.g. 5">
+        <label for="soluteMolarMass">Molar Mass (g/mol)</label>
+        <input type="number" id="soluteMolarMass" placeholder="e.g. 58.44">
+        <label for="solutionVolume">Volume of Solution (L)</label>
+        <input type="number" id="solutionVolume" placeholder="e.g. 0.5">
+        <button class="calc" onclick="calculateMolarity()">Calculate Molarity</button>
+      </div>
+      <div class="right">
+        <div class="result" id="resultMolarity" aria-live="polite">Result will appear here...</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function showCard(id) {
+      document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function calculateMoles() {
+      const molarMass = parseFloat(document.getElementById("molarMass").value);
+      const mass = parseFloat(document.getElementById("mass").value);
+      const result = document.getElementById("resultMoles");
+
+      if (isNaN(molarMass) || isNaN(mass)) {
+        result.textContent = "⚠️ Enter valid molar mass and mass.";
+        return;
+      }
+
+      const moles = mass / molarMass;
+      result.textContent = `🧪 Moles: ${moles.toFixed(4)} mol`;
+    }
+
+    function calculateMolarity() {
+      const mass = parseFloat(document.getElementById("soluteMass").value);
+      const molarMass = parseFloat(document.getElementById("soluteMolarMass").value);
+      const volume = parseFloat(document.getElementById("solutionVolume").value);
+      const result = document.getElementById("resultMolarity");
+
+      if (isNaN(mass) || isNaN(molarMass) || isNaN(volume) || volume === 0) {
+        result.textContent = "⚠️ Enter valid values for mass, molar mass, and volume.";
+        return;
+      }
+
+      const moles = mass / molarMass;
+      const molarity = moles / volume;
+      result.textContent = `🧫 Molarity: ${molarity.toFixed(4)} mol/L`;
+    }
+  </script>
+</body>
+</html>

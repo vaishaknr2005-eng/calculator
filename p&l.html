@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profit & Loss Calculator | Business Margin Tool by Vaishak</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Use this free Profit & Loss Calculator to determine your business margins. Built by Vaishak in Mysore, India with a sleek glowing design.">
+  <meta name="keywords" content="profit calculator, loss calculator, margin calculator, business tools, Vaishak, Mysore, finance calculator, online calculator">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/p&l.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Profit & Loss Calculator by Vaishak">
+  <meta property="og:description" content="Calculate profit, loss, and margin percentage with this stylish business calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/p&l.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #232526, #414345);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      padding: 30px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,255,255,0.1);
+      position: relative;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ffe7;
+      text-shadow: 0 0 6px #00ffe7;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 16px;
+    }
+
+    button.calc {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00bcd4;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.calc:hover {
+      background-color: #26c6da;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 18px;
+      text-align: center;
+      background-color: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.05);
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>📊 Profit & Loss Calculator</h2>
+
+    <form aria-label="Profit & Loss Calculator Form">
+      <label for="cost">Cost Price (₹)</label>
+      <input type="number" id="cost" placeholder="e.g. 1200" aria-required="true">
+
+      <label for="sell">Selling Price (₹)</label>
+      <input type="number" id="sell" placeholder="e.g. 1500" aria-required="true">
+
+      <button class="calc" type="button" onclick="calculatePL()">📈 Calculate</button>
+    </form>
+
+    <div class="result" id="result" aria-live="polite">Result will appear here...</div>
+  </main>
+
+  <script>
+    function calculatePL() {
+      const cost = parseFloat(document.getElementById("cost").value);
+      const sell = parseFloat(document.getElementById("sell").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(cost) || isNaN(sell)) {
+        result.textContent = "⚠️ Enter valid cost and selling price.";
+        return;
+      }
+
+      const diff = sell - cost;
+      if (diff > 0) {
+        result.textContent = `📈 Profit: ₹${diff.toFixed(2)}\n💰 Profit Percentage: ${(diff / cost * 100).toFixed(2)}%`;
+      } else if (diff < 0) {
+        result.textContent = `📉 Loss: ₹${Math.abs(diff).toFixed(2)}\n💸 Loss Percentage: ${(Math.abs(diff) / cost * 100).toFixed(2)}%`;
+      } else {
+        result.textContent = `⚖️ No Profit, No Loss — Break-even Point`;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Physics Calculator</title>
+    <!-- SEO Meta Tags -->
+  <meta name="description" content="Interactive Physics Calculator to compute Force, Kinetic Energy, and Voltage using Ohm’s Law. Built by Vaishak with glowing UI and modular design.">
+  <meta name="keywords" content="physics calculator, force calculator, kinetic energy calculator, ohm’s law calculator, science tools, Vaishak, Mysore, interactive calculator">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/physics.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Physics Calculator by Vaishak">
+  <meta property="og:description" content="Calculate Force, Kinetic Energy, and Voltage with this sleek, interactive physics tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/physics.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tabs button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease;
+    }
+
+    .tabs button:hover {
+      transform: scale(1.05);
+    }
+
+    .card {
+      display: none;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.1);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 16px;
+    }
+
+    button.calc {
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00bcd4;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.calc:hover {
+      background-color: #26c6da;
+    }
+
+    .result {
+      font-size: 18px;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.05);
+      white-space: pre-wrap;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+    <div class="home-button">
+    <a href="index.html"><button>🏠 Home</button></a>
+  </div>
+  
+  <div class="container">
+    <h1>Physics Calculator</h1>
+    <div class="tabs">
+      <button onclick="showCard('forceCard')">🧲 Force</button>
+      <button onclick="showCard('keCard')">⚡ Kinetic Energy</button>
+      <button onclick="showCard('ohmCard')">🔌 Ohm’s Law</button>
+    </div>
+
+    <!-- Force -->
+    <div id="forceCard" class="card active">
+      <label>Mass (kg)</label>
+      <input type="number" id="massF" placeholder="e.g. 10">
+      <label>Acceleration (m/s²)</label>
+      <input type="number" id="accF" placeholder="e.g. 2">
+      <button class="calc" onclick="calcForce()">Calculate Force</button>
+      <div class="result" id="resultF">Result will appear here...</div>
+    </div>
+
+    <!-- Kinetic Energy -->
+    <div id="keCard" class="card">
+      <label>Mass (kg)</label>
+      <input type="number" id="massKE" placeholder="e.g. 5">
+      <label>Velocity (m/s)</label>
+      <input type="number" id="velKE" placeholder="e.g. 3">
+      <button class="calc" onclick="calcKE()">Calculate KE</button>
+      <div class="result" id="resultKE">Result will appear here...</div>
+    </div>
+
+    <!-- Ohm’s Law -->
+    <div id="ohmCard" class="card">
+      <label>Current (A)</label>
+      <input type="number" id="current" placeholder="e.g. 2">
+      <label>Resistance (Ω)</label>
+      <input type="number" id="resistance" placeholder="e.g. 5">
+      <button class="calc" onclick="calcVoltage()">Calculate Voltage</button>
+      <div class="result" id="resultOhm">Result will appear here...</div>
+    </div>
+  </div>
+
+  <script>
+    function showCard(id) {
+      document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function calcForce() {
+      const m = parseFloat(document.getElementById("massF").value);
+      const a = parseFloat(document.getElementById("accF").value);
+      const result = document.getElementById("resultF");
+      if (isNaN(m) || isNaN(a)) {
+        result.textContent = "⚠️ Enter valid mass and acceleration.";
+        return;
+      }
+      const F = m * a;
+      result.textContent = `🧲 Force: ${F.toFixed(2)} N`;
+    }
+
+    function calcKE() {
+      const m = parseFloat(document.getElementById("massKE").value);
+      const v = parseFloat(document.getElementById("velKE").value);
+      const result = document.getElementById("resultKE");
+      if (isNaN(m) || isNaN(v)) {
+        result.textContent = "⚠️ Enter valid mass and velocity.";
+        return;
+      }
+      const KE = 0.5 * m * v * v;
+      result.textContent = `⚡ Kinetic Energy: ${KE.toFixed(2)} J`;
+    }
+
+    function calcVoltage() {
+      const I = parseFloat(document.getElementById("current").value);
+      const R = parseFloat(document.getElementById("resistance").value);
+      const result = document.getElementById("resultOhm");
+      if (isNaN(I) || isNaN(R)) {
+        result.textContent = "⚠️ Enter valid current and resistance.";
+        return;
+      }
+      const V = I * R;
+      result.textContent = `🔌 Voltage: ${V.toFixed(2)} V`;
+    }
+  </script>
+</body>
+</html>

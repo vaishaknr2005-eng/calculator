@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ROI Calculator | Investment Return & Profit Analysis</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free ROI Calculator to analyze your investment returns and net profit. Built by Vaishak with glowing UI and smart logic.">
+  <meta name="keywords" content="ROI calculator, return on investment, profit calculator, business tools, Vaishak, Mysore, investment analysis, financial calculator">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/roi.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="ROI Calculator by Vaishak">
+  <meta property="og:description" content="Calculate your return on investment and net profit with this sleek, interactive calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/roi.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      padding: 30px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,255,255,0.1);
+      position: relative;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ffe7;
+      text-shadow: 0 0 6px #00ffe7;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 16px;
+    }
+
+    button.calc {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00bcd4;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.calc:hover {
+      background-color: #26c6da;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 18px;
+      text-align: center;
+      background-color: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.05);
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>📊 ROI Calculator</h2>
+
+    <form aria-label="ROI Calculation Form">
+      <label for="cost">Investment Cost (₹)</label>
+      <input type="number" id="cost" placeholder="e.g. 100000" aria-required="true">
+
+      <label for="return">Return Value (₹)</label>
+      <input type="number" id="return" placeholder="e.g. 130000" aria-required="true">
+
+      <button class="calc" type="button" onclick="calculateROI()">📈 Calculate ROI</button>
+    </form>
+
+    <div class="result" id="result" aria-live="polite">Result will appear here...</div>
+  </main>
+
+  <script>
+    function calculateROI() {
+      const cost = parseFloat(document.getElementById("cost").value);
+      const ret = parseFloat(document.getElementById("return").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(cost) || isNaN(ret) || cost <= 0) {
+        result.textContent = "⚠️ Enter valid investment and return values.";
+        return;
+      }
+
+      const profit = ret - cost;
+      const roi = (profit / cost) * 100;
+
+      result.textContent = `📈 ROI: ${roi.toFixed(2)}%\n💰 Net Profit: ₹${profit.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>

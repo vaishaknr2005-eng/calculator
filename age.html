@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Calculator | Find Your Exact Age in Years, Months & Days</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Use this free Age Calculator to find your exact age in years, months, and days. Built by Vaishak in Mysore, India with a sleek glassmorphism design.">
+  <meta name="keywords" content="age calculator, birthday calculator, date of birth calculator, Vaishak, Mysore, online tools, glassmorphism UI">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/age.html" />
+
+  <!-- Open Graph for Social Sharing -->
+  <meta property="og:title" content="Age Calculator by Vaishak">
+  <meta property="og:description" content="Find your exact age in years, months, and days with this stylish online calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/age.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #1f1c2c, #2c3e50);
+      color: #ecf0f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+      width: 360px;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #00ffe7;
+      text-shadow: 0 0 6px #00ffe7;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+      background-color: rgba(255,255,255,0.2);
+      color: #fff;
+      text-align: center;
+    }
+
+    button.calculate {
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.calculate:hover {
+      background-color: #26c6da;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <main class="calculator" role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>🎂 Age Calculator</h2>
+
+    <form aria-label="Age Calculator Form">
+      <label for="birthdate">Select your birthdate:</label>
+      <input type="date" id="birthdate" aria-required="true">
+      <button class="calculate" type="button" onclick="calculateAge()">🎉 Calculate Age</button>
+    </form>
+
+    <div class="result" id="result" aria-live="polite">Your age will appear here...</div>
+  </main>
+
+  <script>
+    function calculateAge() {
+      const birthdate = document.getElementById('birthdate').value;
+      const result = document.getElementById('result');
+
+      if (!birthdate) {
+        result.textContent = "📅 Please select your birthdate.";
+        return;
+      }
+
+      const birth = new Date(birthdate);
+      const today = new Date();
+
+      let years = today.getFullYear() - birth.getFullYear();
+      let months = today.getMonth() - birth.getMonth();
+      let days = today.getDate() - birth.getDate();
+
+      if (days < 0) {
+        months--;
+        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      result.innerHTML = `🎉 You are <strong>${years}</strong> years, <strong>${months}</strong> months, and <strong>${days}</strong> days old.`;
+    }
+  </script>
+</body>
+</html>

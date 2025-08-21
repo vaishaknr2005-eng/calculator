@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DreamSync – Sleep Planner | Smart Bedtime Calculator</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="DreamSync is a glowing sleep planner that helps you find the best time to sleep based on your wake-up goal. Built by Vaishak with elegant UI and smart logic.">
+  <meta name="keywords" content="sleep planner, bedtime calculator, circadian rhythm, DreamSync, Vaishak, Mysore, sleep cycle, wake-up time, sleep optimization">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/sleep.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="DreamSync – Sleep Planner by Vaishak">
+  <meta property="og:description" content="Find your ideal bedtime based on your wake-up time. DreamSync helps you sync with your sleep cycles.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/sleep.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #1e2a38, #0f1115);
+      color: #ecf0f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+      width: 360px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #00c3ff;
+      text-shadow: 0 0 6px #00c3ff;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="time"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+      background-color: rgba(255,255,255,0.15);
+      color: #fff;
+      text-align: center;
+    }
+
+    button.calculate {
+      background-color: #0077ff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.calculate:hover {
+      background-color: #3399ff;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .tip {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #f1c40f;
+    }
+  </style>
+</head>
+<body>
+  <main class="calculator" role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>🌙 DreamSync</h2>
+    <label for="wakeTime">When do you want to wake up?</label>
+    <input type="time" id="wakeTime" aria-label="Wake-up time input">
+    <button class="calculate" onclick="calculateSleep()">Suggest Bedtimes</button>
+    <div class="result" id="result" aria-live="polite"></div>
+    <div class="tip" id="tip"></div>
+  </main>
+
+  <script>
+    function calculateSleep() {
+      const wakeTime = document.getElementById('wakeTime').value;
+      const result = document.getElementById('result');
+      const tip = document.getElementById('tip');
+
+      if (!wakeTime) {
+        result.textContent = "⏰ Please enter your wake-up time.";
+        tip.textContent = "";
+        return;
+      }
+
+      const wakeDate = new Date(`1970-01-01T${wakeTime}:00`);
+      const cycles = [6, 7.5, 9];
+      let suggestions = cycles.map(hours => {
+        let sleepDate = new Date(wakeDate.getTime() - hours * 60 * 60 * 1000);
+        return sleepDate.toTimeString().slice(0, 5);
+      });
+
+      result.innerHTML = `🌙 To wake up at <strong>${wakeTime}</strong>, try sleeping at:<br><strong>${suggestions.join(" or ")}</strong>`;
+
+      if (wakeDate.getHours() < 5) {
+        tip.textContent = "💡 Tip: Waking up very early? Try winding down at least 30 minutes before sleep.";
+      } else if (wakeDate.getHours() > 9) {
+        tip.textContent = "💡 Tip: Oversleeping can disrupt your circadian rhythm. Aim for 7–9 hours.";
+      } else {
+        tip.textContent = "✅ You're aiming for a healthy wake-up time!";
+      }
+    }
+  </script>
+</body>
+</html>

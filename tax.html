@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Income Tax Calculator India | Estimate Tax by Age & Income</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Calculate your estimated income tax in India based on age and annual income. Built by Vaishak with glowing UI and smart logic.">
+  <meta name="keywords" content="income tax calculator, India tax slabs, senior citizen tax, cess calculator, Vaishak, Mysore, financial tools">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/tax.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Income Tax Calculator India by Vaishak">
+  <meta property="og:description" content="Estimate your tax liability based on age and income. Includes 4% cess.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/tax.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #2c3e50, #bdc3c7);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 30px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,255,255,0.1);
+      position: relative;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ffe7;
+      text-shadow: 0 0 6px #00ffe7;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(255,255,255,0.2);
+      color: #160a0a;
+      font-size: 16px;
+    }
+
+    button.calc {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00bcd4;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.calc:hover {
+      background-color: #26c6da;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 18px;
+      text-align: center;
+      background-color: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.05);
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>🧾 Income Tax Calculator (India)</h2>
+
+    <label for="income">Annual Income (₹)</label>
+    <input type="number" id="income" placeholder="e.g. 850000" aria-required="true">
+
+    <label for="age">Age Group</label>
+    <select id="age" aria-required="true">
+      <option value="normal">Below 60</option>
+      <option value="senior">60 to 80</option>
+      <option value="super">Above 80</option>
+    </select>
+
+    <button class="calc" type="button" onclick="calculateTax()">📊 Calculate Tax</button>
+
+    <div class="result" id="result" aria-live="polite">Result will appear here...</div>
+  </main>
+
+  <script>
+    function calculateTax() {
+      const income = parseFloat(document.getElementById("income").value);
+      const age = document.getElementById("age").value;
+      const result = document.getElementById("result");
+
+      if (isNaN(income) || income < 0) {
+        result.textContent = "⚠️ Enter a valid income amount.";
+        return;
+      }
+
+      let tax = 0;
+      let slab = [];
+
+      if (age === "normal") {
+        slab = [250000, 500000, 1000000];
+      } else if (age === "senior") {
+        slab = [300000, 500000, 1000000];
+      } else {
+        slab = [500000, 1000000];
+      }
+
+      if (income <= slab[0]) {
+        tax = 0;
+      } else if (income <= slab[1]) {
+        tax = (income - slab[0]) * 0.05;
+      } else if (income <= slab[2]) {
+        tax = (slab[1] - slab[0]) * 0.05 + (income - slab[1]) * 0.2;
+      } else {
+        tax = (slab[1] - slab[0]) * 0.05 + (slab[2] - slab[1]) * 0.2 + (income - slab[2]) * 0.3;
+      }
+
+      const cess = tax * 0.04;
+      const totalTax = tax + cess;
+
+      result.textContent = `🧾 Estimated Tax: ₹${totalTax.toFixed(2)}\n💡 Includes 4% cess`;
+    }
+  </script>
+</body>
+</html>

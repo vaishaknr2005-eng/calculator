@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LoanMatrix – Multi-EMI Planner by Vaishak</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="LoanMatrix is a multi-loan EMI planner built by Vaishak. Calculate EMIs, total payments, and interest for multiple loans with a sleek glowing interface.">
+  <meta name="keywords" content="loan calculator, EMI planner, multi-loan calculator, finance tools, Vaishak, Mysore, interest calculator, loan matrix">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/emi.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="LoanMatrix – Multi-EMI Planner by Vaishak">
+  <meta property="og:description" content="Plan and compare multiple loans with this glowing EMI calculator. Built for clarity and speed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/emi.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top left, #1f1c2c, #2c3e50);
+      color: #ecf0f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+      color: #00ffe7;
+      text-shadow: 0 0 8px #00ffe7;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+      width: 420px;
+      margin-bottom: 30px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .loan-entry {
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0 4px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 10px;
+      background-color: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    button {
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #26c6da;
+    }
+
+    .results {
+      width: 420px;
+      max-height: 300px;
+      overflow-y: auto;
+      background-color: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.1);
+    }
+
+    .result-item {
+      margin-bottom: 15px;
+      border-bottom: 1px dashed #00ffe7;
+      padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <main role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>📊 LoanMatrix – Multi-EMI Planner</h2>
+
+    <section class="calculator" id="calculator" aria-label="Loan Entry Section">
+      <!-- Loan entries will be added here -->
+    </section>
+
+    <div>
+      <button onclick="addLoan()" aria-label="Add another loan">➕ Add Loan</button>
+      <button onclick="calculateEMIs()" aria-label="Calculate EMIs">📈 Calculate EMIs</button>
+    </div>
+
+    <section class="results" id="results" aria-live="polite" aria-label="EMI Results Section"></section>
+  </main>
+
+  <script>
+    let loanCount = 0;
+
+    function addLoan() {
+      loanCount++;
+      const container = document.getElementById('calculator');
+
+      const loanDiv = document.createElement('div');
+      loanDiv.className = 'loan-entry';
+      loanDiv.innerHTML = `
+        <label for="principal${loanCount}">Loan ${loanCount} – Principal (₹)</label>
+        <input type="number" id="principal${loanCount}" placeholder="e.g. 500000" aria-required="true">
+
+        <label for="rate${loanCount}">Interest Rate (% per annum)</label>
+        <input type="number" id="rate${loanCount}" placeholder="e.g. 7.5" aria-required="true">
+
+        <label for="tenure${loanCount}">Tenure (months)</label>
+        <input type="number" id="tenure${loanCount}" placeholder="e.g. 60" aria-required="true">
+      `;
+      container.appendChild(loanDiv);
+    }
+
+    function calculateEMIs() {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      for (let i = 1; i <= loanCount; i++) {
+        const P = parseFloat(document.getElementById(`principal${i}`).value);
+        const R = parseFloat(document.getElementById(`rate${i}`).value) / 12 / 100;
+        const N = parseInt(document.getElementById(`tenure${i}`).value);
+
+        if (isNaN(P) || isNaN(R) || isNaN(N)) continue;
+
+        const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+        const total = emi * N;
+        const interest = total - P;
+
+        const resultItem = document.createElement('div');
+        resultItem.className = 'result-item';
+        resultItem.innerHTML = `
+          <strong>Loan ${i}</strong><br>
+          💳 EMI: ₹${emi.toFixed(2)}<br>
+          💰 Total Payment: ₹${total.toFixed(2)}<br>
+          📉 Total Interest: ₹${interest.toFixed(2)}
+        `;
+        resultsDiv.appendChild(resultItem);
+      }
+    }
+
+    // Add one loan by default
+    addLoan();
+  </script>
+</body>
+</html>

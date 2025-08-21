@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Retirement Calculator | Plan Your Future Finances</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Use this free Retirement Calculator to estimate your future savings and retirement corpus. Built by Vaishak with glowing UI and smart logic.">
+  <meta name="keywords" content="retirement calculator, future savings, financial planning, corpus calculator, Vaishak, Mysore, investment calculator, monthly contribution, annual return">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/retirement.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Retirement Calculator by Vaishak">
+  <meta property="og:description" content="Estimate your retirement corpus with monthly contributions and annual returns.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/retirement.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,255,255,0.2);
+      width: 380px;
+      text-align: center;
+      position: relative;
+    }
+
+    .home-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-btn a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease;
+    }
+
+    .home-btn a button:hover {
+      transform: scale(1.05);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #00ffe7;
+      text-shadow: 0 0 6px #00ffe7;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(244, 232, 232, 0.2);
+      color: #fff;
+      font-size: 16px;
+    }
+
+    button.calc {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00bcd4;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button.calc:hover {
+      background-color: #26c6da;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      padding: 15px;
+      background-color: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+  <main class="calculator" role="main">
+    <div class="home-btn">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>📈 Retirement Calculator</h2>
+
+    <form aria-label="Retirement Planning Form">
+      <input type="number" id="currentAge" placeholder="Current Age" aria-required="true">
+      <input type="number" id="retirementAge" placeholder="Retirement Age" aria-required="true">
+      <input type="number" id="currentSavings" placeholder="Current Savings (₹)" aria-required="true">
+      <input type="number" id="monthlyContribution" placeholder="Monthly Contribution (₹)" aria-required="true">
+      <input type="number" id="annualReturn" placeholder="Expected Annual Return (%)" aria-required="true">
+      <button class="calc" type="button" onclick="calculateRetirement()">🎯 Calculate</button>
+    </form>
+
+    <div class="result" id="result" aria-live="polite">Result will appear here...</div>
+  </main>
+
+  <script>
+    function calculateRetirement() {
+      const age = parseInt(document.getElementById("currentAge").value);
+      const retireAge = parseInt(document.getElementById("retirementAge").value);
+      const savings = parseFloat(document.getElementById("currentSavings").value);
+      const monthly = parseFloat(document.getElementById("monthlyContribution").value);
+      const returnRate = parseFloat(document.getElementById("annualReturn").value) / 100;
+      const result = document.getElementById("result");
+
+      if (isNaN(age) || isNaN(retireAge) || isNaN(savings) || isNaN(monthly) || isNaN(returnRate)) {
+        result.textContent = "⚠️ Please enter valid numbers.";
+        return;
+      }
+
+      const years = retireAge - age;
+      const months = years * 12;
+      let futureValue = savings;
+
+      for (let i = 0; i < months; i++) {
+        futureValue += monthly;
+        futureValue *= (1 + returnRate / 12);
+      }
+
+      result.innerHTML = `🎯 <strong>Estimated Retirement Corpus:</strong><br>₹${futureValue.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>

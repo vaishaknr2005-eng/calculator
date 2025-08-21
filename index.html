@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator Hub | Vaishak</title>
+  <meta name="description" content="Explore 20+ calculators for finance, science, and everyday use. Built with love and glassmorphism." />
+  <meta name="author" content="Vaishak" />
+<meta name="description" content="Explore 20+ free calculators for finance, science, math, and daily life. Built by Vaishak in Mysore, India using modern UI and glassmorphism." />
+<meta name="keywords" content="online calculators, finance tools, science calculators, math calculators, EMI calculator, tax calculator, matrix calculator, retirement calculator, Vaishak, Mysore" />
+<meta name="author" content="Vaishak" />
+<meta name="robots" content="index, follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top left, #1f1c2c, #2c5364);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 42px;
+      color: #f1c40f;
+      text-shadow: 0 0 10px #f1c40f;
+    }
+
+    .search-bar {
+      text-align: center;
+      margin: 20px auto;
+      animation: fadeIn 1s ease;
+    }
+
+    .search-bar input {
+      width: 80%;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(241, 196, 15, 0.3);
+      transition: background 0.3s ease;
+    }
+
+    .search-bar input:focus {
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: left;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(241, 196, 15, 0.6);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #f39c12;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: #fff;
+      display: block;
+      margin-top: 8px;
+      font-size: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔢 Calculator Hub</h1>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="🔍 Search calculators..." onkeyup="filterCards()" />
+    </div>
+  </header>
+
+  <section class="grid" id="calculatorGrid">
+    <div class="card"><h3>🧮 Simple Calculator</h3><a href="simple.html">Open Tool</a></div>
+    <div class="card"><h3>🔬 Scientific Calculator</h3><a href="Scientific.html">Open Tool</a></div>
+    <div class="card"><h3>🎂 Age Calculator</h3><a href="age.html">Open Tool</a></div>
+    <div class="card"><h3>🛌 Sleep Calculator</h3><a href="sleep.html">Open Tool</a></div>
+    <div class="card"><h3>🧊 Matrix Calculator</h3><a href="matrix.html">Open Tool</a></div>
+    <div class="card"><h3>⚗️ Chemistry Calculator</h3><a href="chemistry.html">Open Tool</a></div>
+    <div class="card"><h3>🧲 Physics Calculator</h3><a href="physics.html">Open Tool</a></div>
+    <div class="card"><h3>🏦 EMI Calculator</h3><a href="emi.html">Open Tool</a></div>
+    <div class="card"><h3>💸 Loan Calculator</h3><a href="loan.html">Open Tool</a></div>
+    <div class="card"><h3>🏠 Mortgage Calculator</h3><a href="mortgage.html">Open Tool</a></div>
+    <div class="card"><h3>🧾 Tax Calculator</h3><a href="tax.html">Open Tool</a></div>
+    <div class="card"><h3>🏷️ Discount Calculator</h3><a href="discount.html">Open Tool</a></div>
+    <div class="card"><h3>📈 ROI Calculator</h3><a href="roi.html">Open Tool</a></div>
+    <div class="card"><h3>💹 Dividend Calculator</h3><a href="dividend.html">Open Tool</a></div>
+    <div class="card"><h3>📊 Profit & Loss Calculator</h3><a href="p&l.html">Open Tool</a></div>
+    <div class="card"><h3>🧮 GST/VAT Calculator</h3><a href="gst.html">Open Tool</a></div>
+    <div class="card"><h3>👴 Retirement Calculator</h3><a href="retirment.html">Open Tool</a></div>
+    <div class="card"><h3>💰 Interest Calculator</h3><a href="intrest.html">Open Tool</a></div>
+    <div class="card"><h3>💱 Currency Calculator</h3><a href="currency.html">Open Tool</a></div>
+    <div class="card"><h3>📚 Accounting Calculator</h3><a href="accounting.html">Open Tool</a></div>
+  </section>
+
+  <footer>
+    <p>Made with 🫶 by Vaishak | Mysore, India</p>
+    <p>&copy; 2025 Calculator Hub. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function filterCards() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(input) ? 'block' : 'none';
+      });
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "www.calculatorhub.icu",
+  "@type": "WebSite",
+  "name": "Calculator Hub",
+  "url": "www.calculatorhub.icu",
+  "author": {
+    "@type": "Person",
+    "name": "Vaishak",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mysore",
+      "addressCountry": "India"
+    }
+  },
+  "description": "Explore 20+ calculators for finance, science, math, and everyday use. Built with glowing UI and glassmorphism.",
+  "inLanguage": "en"
+}
+</script>
+</body>
+</html>

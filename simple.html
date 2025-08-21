@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Calculator | Fast & Stylish Arithmetic Tool</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Simple Calculator by Vaishak with glowing UI. Perform basic arithmetic operations quickly and easily.">
+  <meta name="keywords" content="simple calculator, arithmetic calculator, online calculator, Vaishak, Mysore, glowing UI, math tool">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/simple.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Simple Calculator by Vaishak">
+  <meta property="og:description" content="Perform basic math operations with this stylish, glowing calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/simple.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .calculator {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      width: 360px;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      background-color: #2ecc71;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #f1c40f;
+      text-shadow: 0 0 5px #f1c40f;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 20px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+      background-color: rgba(255,255,255,0.2);
+      color: #fff;
+      text-align: right;
+      box-shadow: inset 0 0 5px #000;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .buttons button {
+      padding: 16px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #34495e;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .buttons button:hover {
+      background-color: #3d566e;
+      transform: scale(1.05);
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #1abc9c;
+    }
+  </style>
+</head>
+<body>
+  <main class="calculator" role="main">
+    <div class="home-button">
+      <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+    </div>
+
+    <h2>🧮 Simple Calculator</h2>
+    <input type="text" id="expression" placeholder="Type or click buttons" onkeydown="handleKey(event)" aria-label="Calculator input">
+    
+    <div class="buttons" aria-label="Calculator Buttons">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('/')">÷</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('*')">×</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('-')">−</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="append('+')">+</button>
+
+      <button onclick="clearInput()" style="grid-column: span 2; background-color: #e74c3c;">C</button>
+      <button onclick="deleteLast()" style="grid-column: span 2; background-color: #f39c12;">⌫</button>
+    </div>
+
+    <div class="result" id="result" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const input = document.getElementById('expression');
+    const result = document.getElementById('result');
+
+    function append(value) {
+      input.value += value;
+    }
+
+    function clearInput() {
+      input.value = '';
+      result.textContent = '';
+    }
+
+    function deleteLast() {
+      input.value = input.value.slice(0, -1);
+    }
+
+    function calculate() {
+      try {
+        const output = eval(input.value);
+        result.textContent = `✅ Result: ${output}`;
+        input.value = output;
+      } catch {
+        result.textContent = "⚠️ Invalid expression";
+      }
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Enter') {
+        calculate();
+      }
+    }
+  </script>
+</body>
+</html>

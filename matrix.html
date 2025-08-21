@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Matrix Calculator | Add, Subtract & Multiply Matrices</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Interactive Matrix Calculator to perform addition, subtraction, and multiplication of matrices. Built by Vaishak with glowing UI and modular layout.">
+  <meta name="keywords" content="matrix calculator, matrix addition, matrix multiplication, matrix subtraction, Vaishak, Mysore, math tools, linear algebra">
+  <meta name="author" content="Vaishak">
+  <link rel="canonical" href="www.calculatorhub.icu/matrix.html" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Matrix Calculator by Vaishak">
+  <meta property="og:description" content="Perform matrix operations with this sleek, glowing calculator. Supports addition, subtraction, and multiplication.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="www.calculatorhub.icu/matrix.html">
+  <meta property="og:locale" content="en_IN">
+
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #1f1c2c, #928dab);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      padding: 30px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,255,255,0.1);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 16px;
+      resize: vertical;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00bcd4;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #26c6da;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 18px;
+      text-align: center;
+      background-color: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.05);
+      white-space: pre-wrap;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .home-button a button {
+      background: linear-gradient(45deg, #00c3ff, #0077ff);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00c3ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-button a button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00c3ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="home-button">
+    <a href="index.html"><button aria-label="Go to Home">🏠 Home</button></a>
+  </div>
+
+  <main class="container" role="main">
+    <h1>🧮 Matrix Calculator</h1>
+
+    <label for="matrixA">Matrix A (comma-separated rows)</label>
+    <textarea id="matrixA" placeholder="e.g. 1,2\n3,4"></textarea>
+
+    <label for="matrixB">Matrix B (comma-separated rows)</label>
+    <textarea id="matrixB" placeholder="e.g. 5,6\n7,8"></textarea>
+
+    <label for="operation">Select Operation</label>
+    <select id="operation">
+      <option value="add">Addition (A + B)</option>
+      <option value="subtract">Subtraction (A - B)</option>
+      <option value="multiply">Multiplication (A × B)</option>
+    </select>
+
+    <button onclick="calculateMatrix()">Calculate</button>
+
+    <div class="result" id="result">Result will appear here...</div>
+  </main>
+
+  <script>
+    function parseMatrix(text) {
+      return text.trim().split('\n').map(row => row.split(',').map(Number));
+    }
+
+    function matrixAdd(A, B) {
+      return A.map((row, i) => row.map((val, j) => val + B[i][j]));
+    }
+
+    function matrixSubtract(A, B) {
+      return A.map((row, i) => row.map((val, j) => val - B[i][j]));
+    }
+
+    function matrixMultiply(A, B) {
+      const result = [];
+      for (let i = 0; i < A.length; i++) {
+        result[i] = [];
+        for (let j = 0; j < B[0].length; j++) {
+          let sum = 0;
+          for (let k = 0; k < A[0].length; k++) {
+            sum += A[i][k] * B[k][j];
+          }
+          result[i][j] = sum;
+        }
+      }
+      return result;
+    }
+
+    function formatMatrix(matrix) {
+      return matrix.map(row => row.join('\t')).join('\n');
+    }
+
+    function calculateMatrix() {
+      const A = parseMatrix(document.getElementById("matrixA").value);
+      const B = parseMatrix(document.getElementById("matrixB").value);
+      const op = document.getElementById("operation").value;
+      const resultDiv = document.getElementById("result");
+
+      if (!A.length || !B.length || A.some(row => row.length !== A[0].length) || B.some(row => row.length !== B[0].length)) {
+        resultDiv.textContent = "⚠️ Invalid matrix format.";
+        return;
+      }
+
+      let result;
+      try {
+        if (op === "add") {
+          if (A.length !== B.length || A[0].length !== B[0].length) throw "Size mismatch";
+          result = matrixAdd(A, B);
+        } else if (op === "subtract") {
+          if (A.length !== B.length || A[0].length !== B[0].length) throw "Size mismatch";
+          result = matrixSubtract(A, B);
+        } else if (op === "multiply") {
+          if (A[0].length !== B.length) throw "Multiplication not possible";
+          result = matrixMultiply(A, B);
+        }
+        resultDiv.textContent = `✅ Result:\n${formatMatrix(result)}`;
+      } catch (err) {
+        resultDiv.textContent = "⚠️ Matrix dimensions incompatible for selected operation.";
+      }
+    }
+  </script>
+</body>
+</html>
